@@ -119,6 +119,27 @@ final class QuantityLength {
         return new QuantityLength(resultValue, this.unit);
     }
 
+    public QuantityLength add(QuantityLength other, LengthUnit targetUnit){
+        if(other == null){
+            throw new IllegalArgumentException("Second operand cannot be null");
+        }
+        if(!Double.isFinite(this.value) || !Double.isFinite(other.value)){
+            throw new IllegalArgumentException("Values must be finite");
+        }
+        if(targetUnit == null){
+            throw new IllegalArgumentException("TargetUnit cannot be null");
+        }
+
+        double thisInFeet = this.unit.toFeet(this.value);
+        double otherInFeet = other.unit.toFeet(other.value);
+
+        double sumInFeet = thisInFeet + otherInFeet;
+
+        double resultValue = targetUnit.fromFeet(sumInFeet);
+
+        return new QuantityLength(resultValue, targetUnit);
+    }
+
     // Getter Methods
     public double getValue(){
         return value;
@@ -154,6 +175,9 @@ public class QuantityMeasurementApp {
         demonstrateLengthConversion(1.0, LengthUnit.CENTIMETER, LengthUnit.INCH);
 
         QuantityLength yard = new QuantityLength(1.0, LengthUnit.YARD);
+        QuantityLength inch = new QuantityLength(12.0, LengthUnit.INCH);
+
+        QuantityLength result = yard.add(inch, LengthUnit.CENTIMETER);
 
         demonstrateLengthConversion(yard, LengthUnit.INCH);
     }
