@@ -59,7 +59,7 @@ class QuantityLengthConversionTest {
                         LengthUnit.INCH));
     }
 
-    // ---------------- SAME UNIT ADDITION ----------------
+    // SAME UNIT ADDITION
 
     @Test
     void testAddition_SameUnit_FeetPlusFeet() {
@@ -375,5 +375,85 @@ class QuantityLengthConversionTest {
         QuantityLength result = a.add(b, LengthUnit.CENTIMETER);
 
         assertEquals(5.08, result.getValue(), 1e-2);
+    }
+
+    @Test
+    void testUnitStandaloneConversion() {
+
+        assertEquals(1.0,
+                LengthUnit.INCH.toFeet(12.0),
+                EPS);
+
+        assertEquals(12.0,
+                LengthUnit.INCH.fromFeet(1.0),
+                EPS);
+    }
+
+    @Test
+    void testConvertTo() {
+
+        QuantityLength q =
+                new QuantityLength(1.0, LengthUnit.FEET);
+
+        QuantityLength result =
+                q.convertTo(LengthUnit.INCH);
+
+        assertEquals(12.0, result.getValue(), EPS);
+    }
+
+    @Test
+    void testAddition_DefaultUnit() {
+
+        QuantityLength a =
+                new QuantityLength(1.0, LengthUnit.FEET);
+
+        QuantityLength b =
+                new QuantityLength(12.0, LengthUnit.INCH);
+
+        QuantityLength result = a.add(b);
+
+        assertEquals(2.0, result.getValue(), EPS);
+        assertEquals(LengthUnit.FEET, result.getUnit());
+    }
+
+    @Test
+    void testAddition_ExplicitTarget() {
+
+        QuantityLength a =
+                new QuantityLength(1.0, LengthUnit.FEET);
+
+        QuantityLength b =
+                new QuantityLength(12.0, LengthUnit.INCH);
+
+        QuantityLength result =
+                a.add(b, LengthUnit.YARD);
+
+        assertEquals(2.0 / 3.0, result.getValue(), EPS);
+        assertEquals(LengthUnit.YARD, result.getUnit());
+    }
+
+    @Test
+    void testEquality() {
+
+        QuantityLength a =
+                new QuantityLength(36.0, LengthUnit.INCH);
+
+        QuantityLength b =
+                new QuantityLength(1.0, LengthUnit.YARD);
+
+        assertEquals(a, b);
+    }
+
+    @Test
+    void testNullValidation() {
+
+        QuantityLength a =
+                new QuantityLength(1.0, LengthUnit.FEET);
+
+        assertThrows(IllegalArgumentException.class,
+                () -> a.add(null));
+
+        assertThrows(IllegalArgumentException.class,
+                () -> a.add(a, null));
     }
 }

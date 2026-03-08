@@ -59,6 +59,7 @@ final class QuantityLength {
         return unit.toFeet(value);
     }
 
+    // Equality
     @Override
     public boolean equals(Object obj) {
         // same reference check
@@ -119,6 +120,7 @@ final class QuantityLength {
         return new QuantityLength(resultValue, this.unit);
     }
 
+    // Method for adding value with targetUnit
     public QuantityLength add(QuantityLength other, LengthUnit targetUnit){
         if(other == null){
             throw new IllegalArgumentException("Second operand cannot be null");
