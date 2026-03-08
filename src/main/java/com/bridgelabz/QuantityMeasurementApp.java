@@ -37,7 +37,6 @@ enum LengthUnit{
 }
 
 
-// new one better design
 final class QuantityLength {
     // if we are using A final field it must be initialized in every constructor.
     private final double value;
@@ -98,6 +97,35 @@ final class QuantityLength {
         double baseValue = source.toFeet(value);
 
         return target.fromFeet(baseValue);
+    }
+
+
+    // Method for adding value
+    public QuantityLength add(QuantityLength other){
+        if(other == null){
+            throw new IllegalArgumentException("Second operand cannot be null");
+        }
+        if(!Double.isFinite(this.value) || !Double.isFinite(other.value)){
+            throw new IllegalArgumentException("Values must be finite");
+        }
+
+        double thisInFeet = this.unit.toFeet(this.value);
+        double otherInFeet = other.unit.toFeet(other.value);
+
+        double sumInFeet = thisInFeet + otherInFeet;
+
+        double resultValue = this.unit.fromFeet(sumInFeet);
+
+        return new QuantityLength(resultValue, this.unit);
+    }
+
+    // Getter Methods
+    public double getValue(){
+        return value;
+    }
+
+    public LengthUnit getUnit(){
+        return unit;
     }
 
     @Override
