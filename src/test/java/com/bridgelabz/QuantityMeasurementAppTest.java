@@ -376,4 +376,134 @@ class QuantityLengthConversionTest {
 
         assertTrue(v1.equals(v2));
     }
+
+    // Subtraction And Division
+    @Test
+    void testSameUnitSubtraction() {
+        Quantity<VolumeUnit> v1 =
+                new Quantity<>(5.0, VolumeUnit.LITRE);
+        Quantity<VolumeUnit> v2 =
+                new Quantity<>(2.0, VolumeUnit.LITRE);
+
+        Quantity<VolumeUnit> result = v1.subtract(v2);
+
+        assertEquals(3.0, result.getValue(), EPS);
+        assertEquals(VolumeUnit.LITRE, result.getUnit());
+    }
+
+    @Test
+    void testCrossUnitSubtractionImplicit() {
+        Quantity<LengthUnit> l1 =
+                new Quantity<>(10.0, LengthUnit.FEET);
+        Quantity<LengthUnit> l2 =
+                new Quantity<>(6.0, LengthUnit.INCH);
+
+        Quantity<LengthUnit> result = l1.subtract(l2);
+
+        assertEquals(9.5, result.getValue(), EPS);
+    }
+
+    @Test
+    void testCrossUnitSubtractionExplicit() {
+        Quantity<VolumeUnit> v1 =
+                new Quantity<>(1.0, VolumeUnit.GALLON);
+        Quantity<VolumeUnit> v2 =
+                new Quantity<>(1.0, VolumeUnit.LITRE);
+
+        Quantity<VolumeUnit> result =
+                v1.subtract(v2, VolumeUnit.LITRE);
+
+        assertEquals(2.79, result.getValue(), EPS);
+    }
+
+    @Test
+    void testNegativeResult() {
+        Quantity<VolumeUnit> v1 =
+                new Quantity<>(2.0, VolumeUnit.LITRE);
+        Quantity<VolumeUnit> v2 =
+                new Quantity<>(5.0, VolumeUnit.LITRE);
+
+        Quantity<VolumeUnit> result = v1.subtract(v2);
+
+        assertEquals(-3.0, result.getValue(), EPS);
+    }
+
+    @Test
+    void testZeroResult() {
+        Quantity<VolumeUnit> v1 =
+                new Quantity<>(1.0, VolumeUnit.LITRE);
+        Quantity<VolumeUnit> v2 =
+                new Quantity<>(1000.0, VolumeUnit.MILLILITRE);
+
+        Quantity<VolumeUnit> result = v1.subtract(v2);
+
+        assertEquals(0.0, result.getValue(), EPS);
+    }
+    @Test
+    void testSimpleDivision() {
+        Quantity<WeightUnit> w1 =
+                new Quantity<>(10.0, WeightUnit.KILOGRAM);
+        Quantity<WeightUnit> w2 =
+                new Quantity<>(5.0, WeightUnit.KILOGRAM);
+
+        double result = w1.division(w2);
+
+        assertEquals(2.0, result, EPS);
+    }
+
+    @Test
+    void testCrossUnitDivision() {
+        Quantity<VolumeUnit> v1 =
+                new Quantity<>(1.0, VolumeUnit.LITRE);
+        Quantity<VolumeUnit> v2 =
+                new Quantity<>(1000.0, VolumeUnit.MILLILITRE);
+
+        double result = v1.division(v2);
+
+        assertEquals(1.0, result, EPS);
+    }
+
+    @Test
+    void testResultLessThanOne() {
+        Quantity<LengthUnit> l1 =
+                new Quantity<>(6.0, LengthUnit.INCH);
+        Quantity<LengthUnit> l2 =
+                new Quantity<>(1.0, LengthUnit.FEET);
+
+        double result = l1.division(l2);
+
+        assertEquals(0.5, result, EPS);
+    }
+
+    @Test
+    void testDivisionByZero() {
+        Quantity<WeightUnit> w1 =
+                new Quantity<>(10.0, WeightUnit.KILOGRAM);
+        Quantity<WeightUnit> w2 =
+                new Quantity<>(0.0, WeightUnit.KILOGRAM);
+
+        assertThrows(ArithmeticException.class,
+                () -> w1.division(w2));
+    }
+
+    @Test
+    void testCrossCategorySubtraction() {
+        Quantity<VolumeUnit> volume =
+                new Quantity<>(1.0, VolumeUnit.LITRE);
+
+        Quantity<LengthUnit> length =
+                new Quantity<>(1.0, LengthUnit.FEET);
+
+        assertThrows(IllegalArgumentException.class,
+                () -> volume.subtract((Quantity) length));
+    }
+
+    @Test
+    void testNullSubtraction() {
+        Quantity<VolumeUnit> v =
+                new Quantity<>(1.0, VolumeUnit.LITRE);
+
+        assertThrows(IllegalArgumentException.class,
+                () -> v.subtract(null));
+    }
 }

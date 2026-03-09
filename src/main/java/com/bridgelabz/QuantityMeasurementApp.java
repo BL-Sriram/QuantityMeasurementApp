@@ -34,6 +34,10 @@ final class Quantity<U extends IMeasurable> {
         return unit.convertToBaseUnit(value);
     }
 
+    private double roundToDecimal(double value){
+        return Math.round(value * 100.0) / 100.0;
+    }
+
     // Conversion
     public Quantity<U> convertTo(U targetUnit) {
 
@@ -62,7 +66,6 @@ final class Quantity<U extends IMeasurable> {
     }
 
     public Quantity<U> add(Quantity<U> other, U targetUnit) {
-
         if (other == null)
             throw new IllegalArgumentException("Other quantity cannot be null");
 
@@ -76,6 +79,75 @@ final class Quantity<U extends IMeasurable> {
                 targetUnit.convertFromBaseUnit(sumBase);
 
         return new Quantity<>(result, targetUnit);
+    }
+
+    // Subtract without Target Units
+    public Quantity<U> subtract(Quantity<U> other){
+        if(other == null){
+            throw new IllegalArgumentException("Other cannot be null");
+        }
+
+        if(!this.unit.getClass().equals(other.unit.getClass())){
+            throw new IllegalArgumentException("Different measurement quantities");
+        }
+
+        double subtractBase = this.toBaseUnit() - other.toBaseUnit();
+
+        double result = this.unit.convertFromBaseUnit(subtractBase);
+        result = roundToDecimal(result);
+
+        return new Quantity<>(result, this.unit);
+    }
+
+    // Subtract with Target Units
+    public Quantity<U> subtract(Quantity<U> other, U targetUnit){
+        if(other == null){
+            throw new IllegalArgumentException("Other cannot be null");
+        }
+
+        if(!this.unit.getClass().equals(other.unit.getClass())) {
+            throw new IllegalArgumentException("Different measurement categories");
+        }
+
+        if(!Double.isFinite(this.value) || !Double.isFinite(other.value)) {
+            throw new IllegalArgumentException("Invalid numeric value");
+        }
+
+        if(targetUnit == null){
+            throw new IllegalArgumentException("Target Unit cannot be null");
+        }
+
+        double subtractBase = this.toBaseUnit() - other.toBaseUnit();
+
+        double result = targetUnit.convertFromBaseUnit(subtractBase);
+        result = roundToDecimal(result);
+
+        return new Quantity<>(result, targetUnit);
+    }
+
+    // DIVISION
+    public double division(Quantity<U> other){
+        if(other == null){
+            throw new IllegalArgumentException("Quantity cannot be null");
+        }
+
+        if(!this.unit.getClass().equals(other.unit.getClass())) {
+            throw new IllegalArgumentException("Different measurement categories");
+        }
+
+        if(!Double.isFinite(this.value) || !Double.isFinite(other.value)) {
+            throw new IllegalArgumentException("Invalid numeric value");
+        }
+
+        double otherBase = other.unit.convertToBaseUnit(other.value);
+
+        if(otherBase == 0){
+            throw new ArithmeticException("Cannot divide by zero");
+        }
+
+        double thisBase = this.unit.convertToBaseUnit(this.value);
+
+        return (thisBase / otherBase);
     }
 
     // Equality
@@ -128,10 +200,7 @@ public class QuantityMeasurementApp {
 
     // Generic Addition
     public static <U extends IMeasurable>
-    void demonstrateAddition(Quantity<U> q1,
-                             Quantity<U> q2,
-                             U targetUnit) {
-
+    void demonstrateAddition(Quantity<U> q1, Quantity<U> q2, U targetUnit) {
         Quantity<U> result = q1.add(q2, targetUnit);
 
         System.out.println(
