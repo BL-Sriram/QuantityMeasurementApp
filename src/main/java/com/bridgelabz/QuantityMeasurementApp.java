@@ -105,7 +105,6 @@ final class Quantity<U extends IMeasurable> {
 }
 
 public class QuantityMeasurementApp {
-
     // Generic Conversion
     public static <U extends IMeasurable>
     void demonstrateConversion(double value, U from, U to) {
@@ -151,44 +150,16 @@ public class QuantityMeasurementApp {
     }
 
     public static void main(String[] args) {
-        demonstrateConversion(1.0, LengthUnit.FEET, LengthUnit.INCH);
-        demonstrateConversion(3.0, LengthUnit.YARD, LengthUnit.FEET);
-        demonstrateConversion(36.0, LengthUnit.INCH, LengthUnit.YARD);
-        demonstrateConversion(1.0, LengthUnit.CENTIMETER, LengthUnit.INCH);
+//        Quantity<VolumeUnit> v1 = new Quantity<>(1000, VolumeUnit.LITRE);
+//        Quantity<VolumeUnit> v2 = new Quantity<>(1, VolumeUnit.MILLILITRE);
+//
+//        boolean result = v1.equals(v2);
+//        System.out.println("result " + result);
 
-        Quantity<LengthUnit> yard =
-                new Quantity<>(1.0, LengthUnit.YARD);
+        Quantity<VolumeUnit> v1 = new Quantity<>(3.78541, VolumeUnit.MILLILITRE);
+        Quantity<VolumeUnit> v2 = new Quantity<>(1.0, VolumeUnit.GALLON);
 
-        Quantity<LengthUnit> inch =
-                new Quantity<>(12.0, LengthUnit.INCH);
-
-        demonstrateAddition(yard, inch, LengthUnit.CENTIMETER);
-        demonstrateConversion(yard, LengthUnit.INCH);
-
-        demonstrateEquality(
-                new Quantity<>(36.0, LengthUnit.INCH),
-                new Quantity<>(1.0, LengthUnit.YARD)
-        );
-
-        demonstrateConversion(1.0,
-                WeightUnit.KILOGRAM,
-                WeightUnit.GRAM);
-
-        demonstrateConversion(1000.0,
-                WeightUnit.GRAM,
-                WeightUnit.POUND);
-
-        Quantity<WeightUnit> kg =
-                new Quantity<>(1.0, WeightUnit.KILOGRAM);
-
-        Quantity<WeightUnit> lb =
-                new Quantity<>(2.20462262, WeightUnit.POUND);
-
-        demonstrateEquality(kg, lb);
-
-        Quantity<WeightUnit> g =
-                new Quantity<>(500.0, WeightUnit.GRAM);
-
-        demonstrateAddition(kg, g, WeightUnit.GRAM);
+        boolean result = (v1.equals(v2));
+        System.out.println("result " + result);
     }
 }
