@@ -446,7 +446,7 @@ class QuantityLengthConversionTest {
         Quantity<WeightUnit> w2 =
                 new Quantity<>(5.0, WeightUnit.KILOGRAM);
 
-        double result = w1.division(w2);
+        double result = w1.divide(w2);
 
         assertEquals(2.0, result, EPS);
     }
@@ -458,7 +458,7 @@ class QuantityLengthConversionTest {
         Quantity<VolumeUnit> v2 =
                 new Quantity<>(1000.0, VolumeUnit.MILLILITRE);
 
-        double result = v1.division(v2);
+        double result = v1.divide(v2);
 
         assertEquals(1.0, result, EPS);
     }
@@ -470,7 +470,7 @@ class QuantityLengthConversionTest {
         Quantity<LengthUnit> l2 =
                 new Quantity<>(1.0, LengthUnit.FEET);
 
-        double result = l1.division(l2);
+        double result = l1.divide(l2);
 
         assertEquals(0.5, result, EPS);
     }
@@ -483,7 +483,7 @@ class QuantityLengthConversionTest {
                 new Quantity<>(0.0, WeightUnit.KILOGRAM);
 
         assertThrows(ArithmeticException.class,
-                () -> w1.division(w2));
+                () -> w1.divide(w2));
     }
 
     @Test
