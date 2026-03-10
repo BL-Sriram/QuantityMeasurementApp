@@ -31,10 +31,7 @@ final class Quantity<U extends IMeasurable> {
             throw new IllegalArgumentException("Invalid target unit type");
     }
 
-    private double performBaseArithmetic(
-            Quantity<U> other,
-            ArithmeticOperation operation) {
-
+    private double performBaseArithmetic(Quantity<U> other, ArithmeticOperation operation) {
         double thisBase = unit.convertToBaseUnit(value);
         double otherBase = other.unit.convertToBaseUnit(other.value);
 
@@ -87,6 +84,8 @@ final class Quantity<U extends IMeasurable> {
     }
 
     public Quantity<U> add(Quantity<U> other, U targetUnit) {
+        unit.validateOperationSupport("ADD");
+
         validateArithmeticOperands(other, targetUnit, true);
 
         double baseResult =
@@ -114,6 +113,7 @@ final class Quantity<U extends IMeasurable> {
     }
 
     public double divide(Quantity<U> other) {
+        unit.validateOperationSupport("DIVIDE");
 
         validateArithmeticOperands(other, null, false);
 

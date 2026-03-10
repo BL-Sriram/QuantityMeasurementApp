@@ -11,6 +11,8 @@ public enum VolumeUnit implements IMeasurable{
         this.factorToLitre = factorToLitre;
     }
 
+    SupportsArithmetic supportsArithmetic = () -> true;
+
     @Override
     public double convertToBaseUnit(double value){
         return value * factorToLitre;
@@ -22,7 +24,7 @@ public enum VolumeUnit implements IMeasurable{
     }
 
 
-    @Override
+
     public double getConversionFactor(){
         return factorToLitre;
     }

@@ -1,15 +1,13 @@
 package com.bridgelabz;
 
-/**
- * Common interface for all measurable unit types.
- * Defines contract for base unit conversion.
- */
 public interface IMeasurable{
-    double getConversionFactor();
-
     double convertToBaseUnit(double value);
 
     double convertFromBaseUnit(double baseValue);
+
+    default void validateOperationSupport(String operation){
+        // By default all operations are supported
+    }
 
     String getUnitName();
 }

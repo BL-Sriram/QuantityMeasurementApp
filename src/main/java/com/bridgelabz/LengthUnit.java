@@ -25,12 +25,13 @@ public enum LengthUnit implements IMeasurable{
         return value * conversionFactorToFeet;
     }
 
+    SupportsArithmetic supportsArithmetic = () -> true;
+
     @Override
     public double convertFromBaseUnit(double value){
         return (value / conversionFactorToFeet);
     }
 
-    @Override
     public double getConversionFactor(){
         return conversionFactorToFeet;
     }

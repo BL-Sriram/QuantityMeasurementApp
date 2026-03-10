@@ -10,6 +10,8 @@ public enum WeightUnit implements IMeasurable{
         this.factorToKilogram = factorToKilogram;
     }
 
+    SupportsArithmetic supportsArithmetic = () -> true;
+
     @Override
     // Converts value in this unit to base unit(Kilogram)
     public double convertToBaseUnit(double value){
@@ -22,7 +24,7 @@ public enum WeightUnit implements IMeasurable{
         return value / factorToKilogram;
     }
 
-    @Override
+
     public double getConversionFactor() {
         return factorToKilogram;
     }
