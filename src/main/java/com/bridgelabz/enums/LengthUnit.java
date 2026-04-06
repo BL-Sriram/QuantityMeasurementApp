@@ -1,6 +1,9 @@
-package com.bridgelabz;
+package com.bridgelabz.enums;
 
-public enum LengthUnit implements IMeasurable{
+import com.bridgelabz.interfaces.IMeasurable;
+import com.bridgelabz.interfaces.SupportsArithmetic;
+
+public enum LengthUnit implements IMeasurable {
     // FEET is base unit ΓåÆ conversion factor = 1.0
     FEET(1.0),
     INCH(1.0 / 12.0),

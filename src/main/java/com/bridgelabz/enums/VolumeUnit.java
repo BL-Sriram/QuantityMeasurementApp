@@ -1,6 +1,9 @@
-package com.bridgelabz;
+package com.bridgelabz.enums;
 
-public enum VolumeUnit implements IMeasurable{
+import com.bridgelabz.interfaces.IMeasurable;
+import com.bridgelabz.interfaces.SupportsArithmetic;
+
+public enum VolumeUnit implements IMeasurable {
     LITRE(1.0),
     MILLILITRE(0.001),
     GALLON(3.78541);

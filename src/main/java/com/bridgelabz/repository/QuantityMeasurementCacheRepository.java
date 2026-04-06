@@ -1,0 +1,26 @@
+package com.bridgelabz.repository;
+
+import com.bridgelabz.model.QuantityMeasurementEntity;
+import java.util.*;
+
+public class QuantityMeasurementCacheRepository implements IQuantityMeasurementRepository {
+
+    private static QuantityMeasurementCacheRepository instance;
+    private List<QuantityMeasurementEntity> storage = new ArrayList<>();
+
+    private QuantityMeasurementCacheRepository() {}
+
+    public static QuantityMeasurementCacheRepository getInstance() {
+        if (instance == null)
+            instance = new QuantityMeasurementCacheRepository();
+        return instance;
+    }
+
+    public void save(QuantityMeasurementEntity entity) {
+        storage.add(entity);
+    }
+
+    public List<QuantityMeasurementEntity> getAll() {
+        return storage;
+    }
+}

@@ -1,6 +1,9 @@
-package com.bridgelabz;
+package com.bridgelabz.enums;
 
-public enum WeightUnit implements IMeasurable{
+import com.bridgelabz.interfaces.IMeasurable;
+import com.bridgelabz.interfaces.SupportsArithmetic;
+
+public enum WeightUnit implements IMeasurable {
     KILOGRAM(1.0),
     GRAM(0.001),
     POUND(0.453592);

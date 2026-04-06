@@ -1,4 +1,7 @@
-package com.bridgelabz;
+package com.bridgelabz.enums;
+
+import com.bridgelabz.interfaces.IMeasurable;
+import com.bridgelabz.interfaces.SupportsArithmetic;
 
 import java.util.function.Function;
 
