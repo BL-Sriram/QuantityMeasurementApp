@@ -1,12 +1,16 @@
 package com.bridgelabz.service;
 
 import com.bridgelabz.dto.QuantityDTO;
+import com.bridgelabz.repository.IQuantityMeasurementRepository;
+import com.bridgelabz.repository.QuantityMeasurementCacheRepository;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class QuantityMeasurementServiceTest {
 
-    private IQuantityMeasurementService service = new QuantityMeasurementServiceImpl();
+    private IQuantityMeasurementRepository repo = QuantityMeasurementCacheRepository.getInstance();
+    private IQuantityMeasurementService service = new QuantityMeasurementServiceImpl(repo);
 
     @Test
     void givenSameLengthUnits_whenCompared_shouldReturnTrue() {
@@ -33,7 +37,7 @@ public class QuantityMeasurementServiceTest {
 
         double result = service.add(q1, q2);
 
-        assertEquals(24, result); // 12 + 12 inches
+        assertEquals(24, result);
     }
 
     @Test

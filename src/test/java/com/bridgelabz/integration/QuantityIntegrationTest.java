@@ -2,14 +2,19 @@ package com.bridgelabz.integration;
 
 import com.bridgelabz.controller.QuantityMeasurementController;
 import com.bridgelabz.dto.QuantityDTO;
+import com.bridgelabz.repository.IQuantityMeasurementRepository;
+import com.bridgelabz.repository.QuantityMeasurementDatabaseRepository;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class QuantityIntegrationTest {
 
     @Test
     void givenFullFlow_whenAdd_shouldWorkEndToEnd() {
-        QuantityMeasurementController controller = new QuantityMeasurementController();
+
+        IQuantityMeasurementRepository repo = new QuantityMeasurementDatabaseRepository();
+        QuantityMeasurementController controller = new QuantityMeasurementController(repo);
 
         QuantityDTO q1 = new QuantityDTO();
         q1.value = 1;

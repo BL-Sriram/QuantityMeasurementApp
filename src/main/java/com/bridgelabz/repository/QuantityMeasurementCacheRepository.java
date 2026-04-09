@@ -16,11 +16,23 @@ public class QuantityMeasurementCacheRepository implements IQuantityMeasurementR
         return instance;
     }
 
+    @Override
     public void save(QuantityMeasurementEntity entity) {
         storage.add(entity);
     }
 
+    @Override
     public List<QuantityMeasurementEntity> getAll() {
         return storage;
+    }
+
+    @Override
+    public void deleteAll() {
+        storage.clear();
+    }
+
+    @Override
+    public int getTotalCount() {
+        return storage.size();
     }
 }

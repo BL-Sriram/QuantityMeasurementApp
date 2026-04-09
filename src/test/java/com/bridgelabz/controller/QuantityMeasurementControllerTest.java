@@ -1,12 +1,16 @@
 package com.bridgelabz.controller;
 
 import com.bridgelabz.dto.QuantityDTO;
+import com.bridgelabz.repository.IQuantityMeasurementRepository;
+import com.bridgelabz.repository.QuantityMeasurementCacheRepository;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class QuantityMeasurementControllerTest {
 
-    private QuantityMeasurementController controller = new QuantityMeasurementController();
+    private IQuantityMeasurementRepository repo = QuantityMeasurementCacheRepository.getInstance();
+    private QuantityMeasurementController controller = new QuantityMeasurementController(repo);
 
     @Test
     void givenQuantities_whenCompared_shouldReturnTrue() {

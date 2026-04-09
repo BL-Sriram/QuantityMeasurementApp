@@ -1,20 +1,31 @@
 package com.bridgelabz.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 
+@Getter
+@Setter
 public class QuantityMeasurementEntity implements Serializable {
-    public double resultValue;
-    public String operation;
-    public boolean isError;
-    public String errorMessage;
+    private double value;
+    private String unit;
+    private String operation;
 
-    public QuantityMeasurementEntity(double resultValue, String operation) {
-        this.resultValue = resultValue;
+    private boolean isError;
+    private String errorMessage;
+
+    public QuantityMeasurementEntity(double value, String unit, String operation) {
+        this.value = value;
+        this.unit = unit;
         this.operation = operation;
     }
 
     public QuantityMeasurementEntity(String errorMessage) {
         this.isError = true;
         this.errorMessage = errorMessage;
+    }
+
+    public QuantityMeasurementEntity() {
     }
 }

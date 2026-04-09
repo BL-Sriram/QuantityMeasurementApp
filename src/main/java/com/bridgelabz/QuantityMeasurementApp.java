@@ -2,12 +2,15 @@ package com.bridgelabz;
 
 import com.bridgelabz.controller.QuantityMeasurementController;
 import com.bridgelabz.dto.QuantityDTO;
+import com.bridgelabz.repository.IQuantityMeasurementRepository;
+import com.bridgelabz.repository.QuantityMeasurementDatabaseRepository;
 
 public class QuantityMeasurementApp {
 
     public static void main(String[] args) {
 
-        QuantityMeasurementController controller = new QuantityMeasurementController();
+        IQuantityMeasurementRepository repo = new QuantityMeasurementDatabaseRepository();
+        QuantityMeasurementController controller = new QuantityMeasurementController(repo);
 
         QuantityDTO q1 = new QuantityDTO();
         q1.value = 1;
