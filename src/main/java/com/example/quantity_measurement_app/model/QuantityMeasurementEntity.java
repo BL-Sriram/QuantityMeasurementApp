@@ -2,10 +2,13 @@ package com.example.quantity_measurement_app.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.time.LocalDateTime;
 
 @Entity
-@Data
+@Table(name = "quantity_measurements")
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class QuantityMeasurementEntity {
@@ -15,15 +18,16 @@ public class QuantityMeasurementEntity {
     private Long id;
 
     private String operation;
-    private String measurementType;
-    private Double inputValue;
-    private Double resultValue;
-    private boolean isError;
-    private String errorMessage;
-    private LocalDateTime createdAt;
 
-    @PrePersist
-    public void setTime() {
-        this.createdAt = LocalDateTime.now();
-    }
+    private String measurementType;
+
+    private Double inputValue;
+
+    private Double resultValue;
+
+    private boolean error;
+
+    private String errorMessage;
+
+    private LocalDateTime createdAt;
 }
